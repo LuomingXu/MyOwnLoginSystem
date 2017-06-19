@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.Reflection;
 
 namespace Model
 {
@@ -90,6 +93,59 @@ namespace Model
         {
             set { _filenameOFavatar = value; }
             get { return _filenameOFavatar; }
+        }
+    }
+
+    /// <summary>
+    /// 获取图片扩展名的类
+    /// </summary>
+    public class Pic
+    {
+        /// <summary>
+        /// 获得图片信息的Guid
+        /// </summary>
+        /// <returns></returns>
+        private static Dictionary<String, ImageFormat> GetImageFormats()
+        {
+            var dic = new Dictionary<String, ImageFormat>();
+            var properties = typeof(ImageFormat).GetProperties(BindingFlags.Static | BindingFlags.Public);
+            foreach (var property in properties)
+            {
+                var format = property.GetValue(null, null) as ImageFormat;
+                if (format == null) continue;
+                dic.Add(("." + property.Name).ToLower(), format);
+            }
+            return dic;
+        }
+
+        private static Dictionary<String, ImageFormat> _imageFormats;
+
+        /// <summary>
+        /// 保存获取的图片Guid
+        /// </summary>
+        private static Dictionary<String, ImageFormat> ImageFormats
+        {
+            get
+            {
+                return _imageFormats ?? (_imageFormats = GetImageFormats());
+            }
+        }
+
+        /// <summary>
+        /// 根据图像获取图像的扩展名
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public static String GetExtension(Image image)
+        {
+            foreach (var pair in ImageFormats)
+            {
+                if (pair.Value.Guid == image.RawFormat.Guid)
+                {
+                    return pair.Key;
+                }
+            }
+            throw new BadImageFormatException();
         }
     }
 }

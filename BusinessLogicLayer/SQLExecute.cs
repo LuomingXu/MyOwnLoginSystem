@@ -51,12 +51,12 @@ namespace BusinessLogicLayer
             string strSQL = string.Empty;
             int ret = 0;
 
-            strSQL = $"insert into users(ID,nickname,password,mailaddress,pwdquestion,pwdanswer,avatar) " +
-                     $"values('{user.ID}','{user.Nickname}','{user.Password}','{user.Mailaddress}','{user.PwdQuestion}','{user.PwdAnswer}',@byteAvatar)";
+            strSQL = $"insert into users(ID,nickname,password,mailaddress,pwdquestion,pwdanswer,avatar,filenameofavatar) " +
+                     $"values('{user.ID}','{user.Nickname}','{user.Password}','{user.Mailaddress}','{user.PwdQuestion}','{user.PwdAnswer}',@byteAvatar,@FileName)";
 
             Access DBAccess = new Access();
 
-            ret = DBAccess.ReadMySQL(strSQL,user.Avatar);
+            ret = DBAccess.ReadMySQL(strSQL, user.Avatar, user.FileNameOfAvatar);
 
             return ret;
         }
@@ -293,7 +293,35 @@ namespace BusinessLogicLayer
         }
 
         /// <summary>
-        /// 获取用户头像的加载图片
+        /// 获取用户头像存储的位置
+        /// </summary>
+        /// <param name="strID">用户ID</param>
+        /// <returns>DataSet</returns>
+        public DataSet GetUserAvatarFileName(string strID)
+        {
+            string strSql = $"select filenameofavatar from users where ID='{strID}'";
+
+            try
+            {
+                Access DBAccess = new Access();
+                DataSet ds = new DataSet();
+
+                ds = DBAccess.ReadMySQL(strSql, "temp");
+
+                return ds;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("GetUserAvatarFileName: " + e.Message, "错误", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                DataSet ds = new DataSet();
+                return ds;
+            }
+        }
+
+        /// <summary>
+        /// 获取用户头像的Loading图片
         /// </summary>
         /// <param name="strWhatsFilesIntroduction">FileIntroduction</param>
         /// <returns>DataSet</returns>
@@ -317,6 +345,47 @@ namespace BusinessLogicLayer
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DataSet ds = new DataSet();
                 return ds;
+            }
+        }
+
+        /// <summary>
+        /// 判断是否存在此账号
+        /// </summary>
+        /// <param name="strID">ID</param>
+        /// <returns>影响的行数</returns>
+        public int JudegeIfExitThisID(string strID)
+        {
+            string strSql = $"select nickname from users where ID='{strID}'";
+
+            Access DBAccess = new Access();
+
+            int ret = 0;
+            DataSet ds = new DataSet();
+            ds = DBAccess.ReadMySQL(strSql,"temp");
+            ret = ds.Tables[0].DefaultView.Count;
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 更新用户头像的目录
+        /// </summary>
+        /// <param name="strID">ID</param>
+        /// <param name="strFileName">头像目录</param>
+        /// <returns></returns>
+        public void UpdateAvatarFileName(string strID,string strFileName)
+        {
+            string strSql = $"update users set filenameofavatar=@FileName where ID='{strID}'";
+
+            Access DBAccess = new Access();
+            int ret = 0;
+
+            ret = DBAccess.ReadMySQL(strSql, strFileName, true);
+
+            if (ret != 1)
+            {
+                MessageBox.Show("UpdateAvatarFileName: 没有成功!", "警告", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

@@ -53,6 +53,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.PicAvatar = new System.Windows.Forms.PictureBox();
             this.BtnUploadAvatar = new System.Windows.Forms.Button();
+            this.LblWhetherIDExit = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PicAvatar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,7 +71,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(61, 322);
+            this.label2.Location = new System.Drawing.Point(63, 376);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 33);
             this.label2.TabIndex = 1;
@@ -80,7 +81,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(61, 412);
+            this.label3.Location = new System.Drawing.Point(63, 466);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 33);
             this.label3.TabIndex = 2;
@@ -90,7 +91,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(35, 508);
+            this.label4.Location = new System.Drawing.Point(37, 562);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(143, 33);
             this.label4.TabIndex = 3;
@@ -100,7 +101,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(61, 598);
+            this.label5.Location = new System.Drawing.Point(719, 51);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 33);
             this.label5.TabIndex = 4;
@@ -110,7 +111,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(47, 760);
+            this.label6.Location = new System.Drawing.Point(695, 240);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(111, 33);
             this.label6.TabIndex = 5;
@@ -120,7 +121,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(7, 860);
+            this.label7.Location = new System.Drawing.Point(661, 335);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(207, 33);
             this.label7.TabIndex = 6;
@@ -130,7 +131,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label8.Location = new System.Drawing.Point(61, 958);
+            this.label8.Location = new System.Drawing.Point(719, 433);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(79, 33);
             this.label8.TabIndex = 7;
@@ -139,15 +140,16 @@
             // TxtID
             // 
             this.TxtID.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TxtID.Location = new System.Drawing.Point(249, 40);
+            this.TxtID.Location = new System.Drawing.Point(223, 37);
             this.TxtID.Name = "TxtID";
             this.TxtID.Size = new System.Drawing.Size(222, 44);
             this.TxtID.TabIndex = 1;
+            this.TxtID.TextChanged += new System.EventHandler(this.TxtID_TextChanged);
             // 
             // TxtNickName
             // 
             this.TxtNickName.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TxtNickName.Location = new System.Drawing.Point(247, 322);
+            this.TxtNickName.Location = new System.Drawing.Point(223, 373);
             this.TxtNickName.Name = "TxtNickName";
             this.TxtNickName.Size = new System.Drawing.Size(222, 44);
             this.TxtNickName.TabIndex = 2;
@@ -155,7 +157,7 @@
             // TxtPwd
             // 
             this.TxtPwd.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TxtPwd.Location = new System.Drawing.Point(247, 412);
+            this.TxtPwd.Location = new System.Drawing.Point(223, 463);
             this.TxtPwd.Name = "TxtPwd";
             this.TxtPwd.PasswordChar = '▪';
             this.TxtPwd.Size = new System.Drawing.Size(222, 44);
@@ -164,7 +166,7 @@
             // TxtPwdConfirm
             // 
             this.TxtPwdConfirm.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TxtPwdConfirm.Location = new System.Drawing.Point(247, 508);
+            this.TxtPwdConfirm.Location = new System.Drawing.Point(223, 559);
             this.TxtPwdConfirm.Name = "TxtPwdConfirm";
             this.TxtPwdConfirm.PasswordChar = '▪';
             this.TxtPwdConfirm.Size = new System.Drawing.Size(222, 44);
@@ -173,7 +175,7 @@
             // TxtMailAddress
             // 
             this.TxtMailAddress.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TxtMailAddress.Location = new System.Drawing.Point(211, 598);
+            this.TxtMailAddress.Location = new System.Drawing.Point(869, 51);
             this.TxtMailAddress.Name = "TxtMailAddress";
             this.TxtMailAddress.Size = new System.Drawing.Size(310, 44);
             this.TxtMailAddress.TabIndex = 5;
@@ -183,7 +185,7 @@
             // TxtVerticationCode
             // 
             this.TxtVerticationCode.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TxtVerticationCode.Location = new System.Drawing.Point(247, 760);
+            this.TxtVerticationCode.Location = new System.Drawing.Point(886, 240);
             this.TxtVerticationCode.Name = "TxtVerticationCode";
             this.TxtVerticationCode.Size = new System.Drawing.Size(222, 44);
             this.TxtVerticationCode.TabIndex = 6;
@@ -197,7 +199,7 @@
             "喜欢的人",
             "父母的姓名",
             "宿舍号"});
-            this.CmbPwdQuestion.Location = new System.Drawing.Point(247, 860);
+            this.CmbPwdQuestion.Location = new System.Drawing.Point(886, 335);
             this.CmbPwdQuestion.Name = "CmbPwdQuestion";
             this.CmbPwdQuestion.Size = new System.Drawing.Size(243, 41);
             this.CmbPwdQuestion.TabIndex = 7;
@@ -205,7 +207,7 @@
             // TxtPwdAnswer
             // 
             this.TxtPwdAnswer.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TxtPwdAnswer.Location = new System.Drawing.Point(247, 958);
+            this.TxtPwdAnswer.Location = new System.Drawing.Point(886, 430);
             this.TxtPwdAnswer.Name = "TxtPwdAnswer";
             this.TxtPwdAnswer.Size = new System.Drawing.Size(222, 44);
             this.TxtPwdAnswer.TabIndex = 8;
@@ -213,7 +215,7 @@
             // BtnRegister
             // 
             this.BtnRegister.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BtnRegister.Location = new System.Drawing.Point(101, 1051);
+            this.BtnRegister.Location = new System.Drawing.Point(741, 533);
             this.BtnRegister.Name = "BtnRegister";
             this.BtnRegister.Size = new System.Drawing.Size(138, 62);
             this.BtnRegister.TabIndex = 9;
@@ -224,7 +226,7 @@
             // BtnShowPwd
             // 
             this.BtnShowPwd.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BtnShowPwd.Location = new System.Drawing.Point(508, 402);
+            this.BtnShowPwd.Location = new System.Drawing.Point(484, 453);
             this.BtnShowPwd.Name = "BtnShowPwd";
             this.BtnShowPwd.Size = new System.Drawing.Size(84, 162);
             this.BtnShowPwd.TabIndex = 10;
@@ -237,7 +239,7 @@
             // 
             this.BtnSendMail.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnSendMail.ForeColor = System.Drawing.Color.Red;
-            this.BtnSendMail.Location = new System.Drawing.Point(167, 669);
+            this.BtnSendMail.Location = new System.Drawing.Point(869, 122);
             this.BtnSendMail.Name = "BtnSendMail";
             this.BtnSendMail.Size = new System.Drawing.Size(239, 62);
             this.BtnSendMail.TabIndex = 11;
@@ -249,7 +251,7 @@
             // 
             this.BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnCancel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BtnCancel.Location = new System.Drawing.Point(373, 1051);
+            this.BtnCancel.Location = new System.Drawing.Point(971, 533);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(148, 62);
             this.BtnCancel.TabIndex = 12;
@@ -262,7 +264,7 @@
             this.LstMailAddress.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.LstMailAddress.FormattingEnabled = true;
             this.LstMailAddress.ItemHeight = 33;
-            this.LstMailAddress.Location = new System.Drawing.Point(211, 638);
+            this.LstMailAddress.Location = new System.Drawing.Point(869, 92);
             this.LstMailAddress.Name = "LstMailAddress";
             this.LstMailAddress.Size = new System.Drawing.Size(310, 169);
             this.LstMailAddress.TabIndex = 13;
@@ -274,7 +276,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(73, 188);
+            this.label9.Location = new System.Drawing.Point(75, 242);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(79, 33);
             this.label9.TabIndex = 14;
@@ -283,7 +285,7 @@
             // PicAvatar
             // 
             this.PicAvatar.InitialImage = global::MyOwnLoginSystem.Properties.Resources.题_1_灰;
-            this.PicAvatar.Location = new System.Drawing.Point(249, 122);
+            this.PicAvatar.Location = new System.Drawing.Point(225, 173);
             this.PicAvatar.Name = "PicAvatar";
             this.PicAvatar.Size = new System.Drawing.Size(222, 160);
             this.PicAvatar.TabIndex = 15;
@@ -292,7 +294,7 @@
             // BtnUploadAvatar
             // 
             this.BtnUploadAvatar.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BtnUploadAvatar.Location = new System.Drawing.Point(508, 122);
+            this.BtnUploadAvatar.Location = new System.Drawing.Point(484, 173);
             this.BtnUploadAvatar.Name = "BtnUploadAvatar";
             this.BtnUploadAvatar.Size = new System.Drawing.Size(75, 160);
             this.BtnUploadAvatar.TabIndex = 16;
@@ -300,12 +302,25 @@
             this.BtnUploadAvatar.UseVisualStyleBackColor = true;
             this.BtnUploadAvatar.Click += new System.EventHandler(this.BtnUploadAvatar_Click);
             // 
+            // LblWhetherIDExit
+            // 
+            this.LblWhetherIDExit.AutoSize = true;
+            this.LblWhetherIDExit.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.LblWhetherIDExit.ForeColor = System.Drawing.Color.Red;
+            this.LblWhetherIDExit.Location = new System.Drawing.Point(217, 99);
+            this.LblWhetherIDExit.Name = "LblWhetherIDExit";
+            this.LblWhetherIDExit.Size = new System.Drawing.Size(271, 33);
+            this.LblWhetherIDExit.TabIndex = 17;
+            this.LblWhetherIDExit.Text = "LblWhetherIDExit";
+            this.LblWhetherIDExit.Visible = false;
+            // 
             // FormRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BtnCancel;
-            this.ClientSize = new System.Drawing.Size(614, 1229);
+            this.ClientSize = new System.Drawing.Size(1233, 663);
+            this.Controls.Add(this.LblWhetherIDExit);
             this.Controls.Add(this.BtnUploadAvatar);
             this.Controls.Add(this.PicAvatar);
             this.Controls.Add(this.label9);
@@ -382,5 +397,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox PicAvatar;
         private System.Windows.Forms.Button BtnUploadAvatar;
+        private System.Windows.Forms.Label LblWhetherIDExit;
     }
 }

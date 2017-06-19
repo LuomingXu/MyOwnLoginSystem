@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DataBaseAccessLayer</name>
+    </assembly>
+    <members>
+        <member name="T:DataBaseAccessLayer.Access">
+            <summary>
+            链接数据库
+            </summary>
+        </member>
+        <member name="M:DataBaseAccessLayer.Access.ReadMySQL(System.String,System.String)">
+            <summary>
+            操作MySQL数据库,获取DataSet
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="strDsName">DataSet的名字</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:DataBaseAccessLayer.Access.ReadMySQL(System.String)">
+            <summary>
+            操作MySQL数据库, 使用ExecuteNonQuery
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:DataBaseAccessLayer.Access.ReadMySQL(System.String,System.Byte[])">
+            <summary>
+            向数据库中添加图片文件
+            </summary>
+            <param name="strSQL"></param>
+            <param name="ImageBytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataBaseAccessLayer.Access.ReadMySQL(System.String,System.String,System.Boolean)">
+            <summary>
+            向数据库中添加图片目录
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="FileName">文件目录</param>
+            <param name="isFile">bool值</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:DataBaseAccessLayer.Access.ReadMySQL(System.String,System.Byte[],System.String)">
+            <summary>
+            添加用户数据, 包含头像, 和头像路径
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="byteAVatar">byte[]</param>
+            <param name="FileName">文件目录</param>
+            <returns>影响的行数</returns>
+        </member>
+        <member name="M:DataBaseAccessLayer.Access.ReadSQLserver(System.String,System.String)">
+            <summary>
+            操作SQLserver数据库,获取DataSet
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="strDsName">DataSet的名字</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:DataBaseAccessLayer.Access.ReadSQLserver(System.String)">
+            <summary>
+            操作MSQLserver数据库, 使用ExecuteNonQuery
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <returns>影响的行数</returns>
+        </member>
+    </members>
+</doc>

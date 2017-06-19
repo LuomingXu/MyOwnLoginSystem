@@ -17,15 +17,20 @@ namespace MyOwnLoginSystem
 {
     public partial class FormRegister : Form 
     {
-        private OpenFileDialog OpenAvatar = new OpenFileDialog()
-        {
-            Filter = "Picture Files(*.png,*.gif,*.jpg,*.bmp,*.jpeg)|*.png;*.gif;*.jpg;*.bmp;*.jpeg| ALL Files(*.*)|*.*",
-        };
-
         public FormRegister()
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// 此form内部的, 用来保存用户头像目录的string
+        /// </summary>
+        private string strAvatarFileName = string.Empty;
+
+        private OpenFileDialog OpenAvatar = new OpenFileDialog()
+        {
+            Filter = "Picture Files(*.png,*.gif,*.jpg,*.bmp,*.jpeg)|*.png;*.gif;*.jpg;*.bmp;*.jpeg| ALL Files(*.*)|*.*",
+        };
 
         private void FormRegister_Load(object sender, EventArgs e)
         {
@@ -50,6 +55,30 @@ namespace MyOwnLoginSystem
             }
         }
 
+        private void TxtID_TextChanged(object sender, EventArgs e)
+        {
+            SQLExecute excute = new SQLExecute();
+            string strID = TxtID.Text.Trim();
+            int ret = 0;
+
+            ret = excute.JudegeIfExitThisID(strID);
+
+            if (ret == 1)
+            {
+                BtnRegister.Enabled = false;
+                LblWhetherIDExit.Text = "此账户名已存在!";
+                LblWhetherIDExit.ForeColor = Color.Red;
+                LblWhetherIDExit.Visible = true;
+            }
+            else
+            {
+                BtnRegister.Enabled = true;
+                LblWhetherIDExit.Text = "可用的用户名";
+                LblWhetherIDExit.ForeColor = Color.Green;
+                LblWhetherIDExit.Visible = true;
+            }
+        }
+
         private void BtnUploadAvatar_Click(object sender, EventArgs e)
         {
             if (TxtID.Text.Trim().Equals(string.Empty))
@@ -61,12 +90,15 @@ namespace MyOwnLoginSystem
             if (OpenAvatar.ShowDialog() == DialogResult.OK)
             {
                 PicAvatar.Image = Image.FromFile(OpenAvatar.FileName);
-                string[] strExpandedName = OpenAvatar.FileName.Split('.');
+                string ext = Pic.GetExtension(PicAvatar.Image);
 
-                Directory.CreateDirectory(Environment.CurrentDirectory + @"\UersAvatars");
+                Directory.CreateDirectory(Environment.CurrentDirectory + "\\UsersAvatars");
 
-                PicAvatar.Image.Save(Environment.CurrentDirectory + @"\UersAvatars\" +
-                    $"{TxtID.Text.Trim()}" + "." + strExpandedName[1]);
+                //将保存的图片的位置暂存, 在下面保存到User里面
+                strAvatarFileName = Environment.CurrentDirectory + "\\UsersAvatars\\" +
+                    TxtID.Text.Trim() + ext;
+
+                PicAvatar.Image.Save(strAvatarFileName);
             }
         }
 
@@ -104,6 +136,7 @@ namespace MyOwnLoginSystem
                 PwdQuestion = CmbPwdQuestion.Text.Trim(),
                 PwdAnswer = TxtPwdAnswer.Text.Trim(),
                 Avatar = bytesAvatar,
+                FileNameOfAvatar = strAvatarFileName,
             };
 
             string strPwdConfirm = TxtPwdConfirm.Text.Trim();
@@ -248,7 +281,7 @@ namespace MyOwnLoginSystem
             }
         }
 
-        public void TxtMailAddress_TextChanged(object sender, EventArgs e)
+        private void TxtMailAddress_TextChanged(object sender, EventArgs e)
         {
             LstMailAddress.Items.Clear();
 
@@ -269,7 +302,7 @@ namespace MyOwnLoginSystem
             }
         }
 
-        public void TxtMailAddress_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtMailAddress_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\b')
             {
@@ -283,16 +316,17 @@ namespace MyOwnLoginSystem
             if (e.KeyChar == (char)Keys.Enter)
             {
                 TxtMailAddress.Text = LstMailAddress.Items[0].ToString();
+                LstMailAddress.Visible = false;
             }
         }
 
-        public void LstMailAddress_MouseMove(object sender, MouseEventArgs e)
+        private void LstMailAddress_MouseMove(object sender, MouseEventArgs e)
         {
             ListBox eObj = sender as ListBox;
             eObj.SelectedIndex = eObj.IndexFromPoint(e.Location);
         }
 
-        public void LstMailAddress_Click(object sender, EventArgs e)
+        private void LstMailAddress_Click(object sender, EventArgs e)
         {
             TxtMailAddress.Text = LstMailAddress.Text.Trim().ToString();
             LstMailAddress.Visible = false;
@@ -316,6 +350,6 @@ namespace MyOwnLoginSystem
         {
             TxtPwd.PasswordChar = '▪';
             TxtPwdConfirm.PasswordChar = '▪';
-        } 
+        }
     }
 }

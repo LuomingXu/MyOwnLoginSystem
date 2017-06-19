@@ -33,7 +33,7 @@ namespace MyOwnLoginSystem
             PicUserAvatar.Image = image;
         }
 
-        #region 2017.6.12.16:33 为了从SQLserver中转移省市区数据到MySQL而写的代码, 有关控件都unvisible, unenable; 需要using DAL
+        #region 2017.6.12.16:33 为了从SQLserver中转移省市区数据到MySQL而写的代码, 有关控件都unvisible, unenable; 需要using DAL; 其中有关select语句返回-1的代码是错误的, 由于对我已经没用了, 所以就不改了, 特此告知
 
         private void BtnInsertChina_Click(object sender, EventArgs e)
         {

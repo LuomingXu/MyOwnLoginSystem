@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogicLayer;
 using System.IO;
+using Model;
 
 namespace MyOwnLoginSystem
 {
@@ -63,7 +64,7 @@ namespace MyOwnLoginSystem
 
             ret = excute.UserLogin(strID, strPwd);
 
-            if (ret > 0)
+            if (ret == 1)
             {
                 MessageBox.Show("登录成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //FormMain FrmM = new FormMain();
@@ -75,16 +76,37 @@ namespace MyOwnLoginSystem
                 //        Application.Run(FrmM);
                 //    }).Start();
 
+                
                 DataSet ds = new DataSet();
-                byte[] bytes = null;
-                ds = excute.GetUserAvatar(TxtID.Text.Trim());
-                bytes = (byte[])ds.Tables["temp"].Rows[0][0];
+                ds = excute.GetUserAvatarFileName(TxtID.Text.Trim());
+                Image image = null;
 
-                using (MemoryStream ms = new MemoryStream(bytes))
+                //从保存用户头像的文件夹加载头像, 如果没有就从数据库拉取, 并将其以用户名+格式的形式保存
+                try
                 {
-                    Image image = Image.FromStream(ms);
-                    ImageChange.ImageChange(image);
+                    image = Image.FromFile(ds.Tables[0].Rows[0][0].ToString());
                 }
+                catch (Exception)
+                {
+                    byte[] bytes = null;
+
+                    ds = excute.GetUserAvatar(TxtID.Text.Trim());
+                    bytes = (byte[])ds.Tables["temp"].Rows[0][0];
+
+                    MemoryStream ms = new MemoryStream(bytes);
+                    image = Image.FromStream(ms);
+
+                    string ext = Pic.GetExtension(image);
+                    //如果没有此目录的话, 就创建
+                    Directory.CreateDirectory(Environment.CurrentDirectory + "\\UsersAvatars");
+                    string strFileName = Environment.CurrentDirectory + "\\UsersAvatars\\" + TxtID.Text.Trim() + ext;
+                    image.Save(strFileName);
+
+                    excute.UpdateAvatarFileName(TxtID.Text.Trim(), strFileName);
+                }
+
+                ImageChange.ImageChange(image);
+
                 Close();
             }
             else
