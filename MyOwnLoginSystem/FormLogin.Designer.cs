@@ -117,6 +117,7 @@
             this.TxtPwd.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.TxtPwd.Location = new System.Drawing.Point(254, 115);
             this.TxtPwd.Name = "TxtPwd";
+            this.TxtPwd.PasswordChar = '▪';
             this.TxtPwd.Size = new System.Drawing.Size(208, 44);
             this.TxtPwd.TabIndex = 7;
             // 

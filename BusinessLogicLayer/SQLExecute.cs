@@ -84,23 +84,28 @@ namespace BusinessLogicLayer
         /// 登录
         /// </summary>
         /// <param name="strID">账号</param>
-        /// <param name="strPwd">密码</param>
-        /// <returns>影响的行数</returns>
-        public int UserLogin(string strID, string strPwd)
+        /// <returns>DataSet, 仅包含password</returns>
+        public DataSet UserLogin(string strID)
         {
             string strSQL = string.Empty;
-            int ret = 0;
 
-            strSQL = $"select * from users where ID='{strID}' and password='{strPwd}'";
+            try
+            {
+                strSQL = $"select password from users where ID='{strID}'";
 
-            Access DBAccess = new Access();
-            DataSet ds = new DataSet();
+                Access DBAccess = new Access();
+                DataSet ds = new DataSet();
 
-            ds = DBAccess.ReadMySQL(strSQL, "temp");
+                ds = DBAccess.ReadMySQL(strSQL, "temp");
 
-            ret = ds.Tables[0].DefaultView.Count;
-
-            return ret;
+                return ds;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("UserLogin: " + e.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DataSet ds = new DataSet();
+                return ds;
+            }
         }
 
         /// <summary>

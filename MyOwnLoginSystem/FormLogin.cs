@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using BusinessLogicLayer;
 using System.IO;
 using Model;
+using PasswordSecurity;
 
 namespace MyOwnLoginSystem
 {
@@ -33,6 +34,7 @@ namespace MyOwnLoginSystem
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
+            TxtID.Text = string.Empty;
             TxtID.Focus();
         }
 
@@ -53,18 +55,20 @@ namespace MyOwnLoginSystem
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            int ret = 0;
+            bool isRet = false;
             string strID = string.Empty;
             string strPwd = string.Empty;
-
+            DataSet ds = new DataSet();
+            SQLExecute excute = new SQLExecute();
+            
             strID = TxtID.Text.Trim();
             strPwd = TxtPwd.Text.Trim();
 
-            SQLExecute excute = new SQLExecute();
+            ds = excute.UserLogin(strID);
 
-            ret = excute.UserLogin(strID, strPwd);
+            isRet = PasswordStorage.VerifyPassword(strPwd, ds.Tables[0].Rows[0][0].ToString());
 
-            if (ret == 1)
+            if (isRet)
             {
                 MessageBox.Show("登录成功!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //FormMain FrmM = new FormMain();
@@ -76,8 +80,7 @@ namespace MyOwnLoginSystem
                 //        Application.Run(FrmM);
                 //    }).Start();
 
-                
-                DataSet ds = new DataSet();
+                ds.Clear();
                 ds = excute.GetUserAvatarFileName(TxtID.Text.Trim());
                 Image image = null;
 
@@ -101,7 +104,7 @@ namespace MyOwnLoginSystem
                     Directory.CreateDirectory(Environment.CurrentDirectory + "\\UsersAvatars");
                     string strFileName = Environment.CurrentDirectory + "\\UsersAvatars\\" + TxtID.Text.Trim() + ext;
                     image.Save(strFileName);
-
+                    //并将此目录更新到数据库, 以便下次从本地加载头像
                     excute.UpdateAvatarFileName(TxtID.Text.Trim(), strFileName);
                 }
 
@@ -111,7 +114,7 @@ namespace MyOwnLoginSystem
             }
             else
             {
-                MessageBox.Show("失败!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("登录失败!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

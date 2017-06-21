@@ -12,6 +12,7 @@ using System.Net;
 using System.IO;
 using Model;
 using BusinessLogicLayer;
+using PasswordSecurity;
 
 namespace MyOwnLoginSystem
 {
@@ -123,29 +124,20 @@ namespace MyOwnLoginSystem
                 
             }
 
-            byte[] bytesAvatar = null;
-            ImageConverter imgconv = new ImageConverter();
-            bytesAvatar = (byte[])imgconv.ConvertTo(PicAvatar.Image, typeof(byte[]));
+            int ret = 0;
+            DialogResult retDR;
 
             User user = new User()
             {
                 ID = TxtID.Text.Trim(),
                 Nickname = TxtNickName.Text.Trim(),
-                Password = TxtPwd.Text.Trim(),
                 Mailaddress = TxtMailAddress.Text.Trim(),
                 PwdQuestion = CmbPwdQuestion.Text.Trim(),
                 PwdAnswer = TxtPwdAnswer.Text.Trim(),
-                Avatar = bytesAvatar,
                 FileNameOfAvatar = strAvatarFileName,
             };
 
-            string strPwdConfirm = TxtPwdConfirm.Text.Trim();
-
-            int ret = 0;
-            DialogResult retDR;
-
-
-            if (user.Password.Equals(strPwdConfirm) != true)
+            if (TxtPwd.Text.Trim().Equals(TxtPwdConfirm.Text.Trim()) != true)
             {
                 MessageBox.Show("您输入的密码前后不一样!", "警告",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -157,7 +149,7 @@ namespace MyOwnLoginSystem
                 return;
             }
 
-            if (user.ID.Equals(string.Empty) || user.Password.Equals(string.Empty) || user.Mailaddress.Equals(string.Empty) || strPwdConfirm.Equals(string.Empty) || user.PwdQuestion.Equals(string.Empty) || user.PwdAnswer.Equals(string.Empty))
+            if (user.ID.Equals(string.Empty) || TxtPwd.Text.Trim().Equals(string.Empty) || user.Mailaddress.Equals(string.Empty) || TxtPwdConfirm.Text.Trim().Equals(string.Empty) || user.PwdQuestion.Equals(string.Empty) || user.PwdAnswer.Equals(string.Empty))
             {
                 MessageBox.Show("您有选项没有输入!", "警告",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -172,6 +164,15 @@ namespace MyOwnLoginSystem
 
                 return;
             }
+
+            //将image转为byte[]保存到数据库MEDIUMBLOB里面
+            byte[] bytesAvatar = null;
+            ImageConverter imgconv = new ImageConverter();
+            bytesAvatar = (byte[])imgconv.ConvertTo(PicAvatar.Image, typeof(byte[]));
+            user.Avatar = bytesAvatar;
+
+            //将密码转为hash保存到数据库
+            user.Password = PasswordStorage.CreateHash(TxtPwd.Text.Trim());
 
             retDR = MessageBox.Show("您确定注册?", "询问",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -240,7 +241,7 @@ namespace MyOwnLoginSystem
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     Credentials = new NetworkCredential("xlm46566696", "xlm123")
                 };
-
+                
                 MailMessage mailMessage = new MailMessage()
                 {
                     From = new MailAddress("xlm46566696@163.com", "徐络溟", Encoding.UTF8),
