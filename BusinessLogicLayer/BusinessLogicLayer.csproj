@@ -48,6 +48,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataBaseAccessLayer, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DataBaseAccessLayer\DataBaseAccessLayer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -63,10 +67,6 @@
     <Compile Include="SQLExecute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBaseAccessLayer\DataBaseAccessLayer.csproj">
-      <Project>{67b05600-aed9-4ddf-849e-40b29e7bbecf}</Project>
-      <Name>DataBaseAccessLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{60d77ffa-5b5e-429b-925b-2c66f0942138}</Project>
       <Name>Model</Name>

@@ -38,6 +38,24 @@ namespace MyOwnLoginSystem
             SQLExecute excute = new SQLExecute();
             DataSet ds = new DataSet();
 
+            try
+            {
+                //似乎只要定义了为zoom之后, 只要不更改, 后续加载的图片还是zoom的
+                PicAvatar.SizeMode = PictureBoxSizeMode.Zoom;
+                PicAvatar.Image = Image.FromFile(Environment.CurrentDirectory + "\\Pic\\LoadingPic.png");
+            }
+            catch (Exception)
+            {
+                ds = excute.GetAvatarLoadingPic("loadingPic");
+                MemoryStream ms = new MemoryStream((byte[])ds.Tables[0].Rows[0][0]);
+                PicAvatar.Image = Image.FromStream(ms);
+
+                Directory.CreateDirectory(Environment.CurrentDirectory + "\\Pic");
+                PicAvatar.Image.Save(Environment.CurrentDirectory + "\\Pic\\LoadingPic.png");
+
+               // MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             ds = excute.GetMailDomain();
 
             intMailDomainCows = ds.Tables[0].DefaultView.Count;
@@ -225,7 +243,7 @@ namespace MyOwnLoginSystem
             Random RdNumber = new Random();
             int i = RdNumber.Next();
             i %= 1000000;
-            //保存在全Form变量中, 以便验证校对
+            //保存在Form全局变量中, 以便验证校对
             strVttCode = i.ToString();
 
             //获取需要发送的邮箱
@@ -233,18 +251,26 @@ namespace MyOwnLoginSystem
             strMailTo = TxtMailAddress.Text.Trim();
 
             try
-            {
+            {//被注释掉的东西是原来用163发送邮件的代码
                 SmtpClient client = new SmtpClient()
                 {
-                    Host = "smtp.163.com",
+                    //Host = "smtp.163.com",
+                    //UseDefaultCredentials = true,
+                    //DeliveryMethod = SmtpDeliveryMethod.Network,
+                    //Credentials = new NetworkCredential("xlm46566696", "xlm123")
+
+                    Host = "smtp.qq.com",
+                   // Port = 587,
+                    EnableSsl = true,//这个是关键, 如果没有这个, 就不能发送回提示need EHLO and AUTH first
                     UseDefaultCredentials = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential("xlm46566696", "xlm123")
+                    Credentials = new NetworkCredential("3084951871", "uupoxkgfrnzgdgej")
                 };
                 
                 MailMessage mailMessage = new MailMessage()
                 {
-                    From = new MailAddress("xlm46566696@163.com", "徐络溟", Encoding.UTF8),
+                    //From = new MailAddress("xlm46566696@163.com", "徐络溟", Encoding.UTF8),
+                    From = new MailAddress("3084951871@qq.com", "徐络溟", Encoding.UTF8),
                     Subject = "徐络溟的验证码测试",
                     Body = "验证码\n" + strVttCode,
                     SubjectEncoding = Encoding.UTF8,
@@ -318,6 +344,9 @@ namespace MyOwnLoginSystem
             {
                 TxtMailAddress.Text = LstMailAddress.Items[0].ToString();
                 LstMailAddress.Visible = false;
+
+                //光标定位到最后
+                TxtMailAddress.Select(TxtMailAddress.Text.Length, 1);
             }
         }
 

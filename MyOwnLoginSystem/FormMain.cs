@@ -291,7 +291,9 @@ namespace MyOwnLoginSystem
                 //如果已经在本地保存了图片, 就直接到保存图片的文件里面去加载, 否则从数据库中读取
                 try
                 {
-                    PicUserAvatar.Image = Image.FromFile(Environment.CurrentDirectory + @"\Pic\LoadingPic.png");
+                    PicUserAvatar.SizeMode = PictureBoxSizeMode.Zoom;
+                    //PicUserAvatar.Image = Image.FromFile(Environment.CurrentDirectory + @"\Pic\LoadingPic.png");
+                    PicUserAvatar.LoadAsync(Environment.CurrentDirectory + @"\Pic\LoadingPic.png");
                 }
                 catch (Exception)
                 {

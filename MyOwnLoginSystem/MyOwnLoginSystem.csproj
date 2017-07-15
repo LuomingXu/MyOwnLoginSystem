@@ -84,6 +84,10 @@
     <ManifestKeyFile>MyOwnLoginSystem_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataBaseAccessLayer, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DataBaseAccessLayer\DataBaseAccessLayer.dll</HintPath>
+    </Reference>
     <Reference Include="PasswordSecurity">
       <HintPath>..\PasswordSecurity\PasswordSecurity.dll</HintPath>
     </Reference>
@@ -198,10 +202,6 @@
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
       <Project>{29dd0c5e-93f7-40fe-a0fb-27e191300e0d}</Project>
       <Name>BusinessLogicLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataBaseAccessLayer\DataBaseAccessLayer.csproj">
-      <Project>{67b05600-aed9-4ddf-849e-40b29e7bbecf}</Project>
-      <Name>DataBaseAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{60d77ffa-5b5e-429b-925b-2c66f0942138}</Project>
