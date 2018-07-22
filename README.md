@@ -1,7 +1,7 @@
 新的登录系统
 =
 <a href="https://ci.appveyor.com/project/LuomingXu/myownloginsystem"><img src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true" alt="Project Badge" width="100px"></a>
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)<br/>
+![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)<br/>
 
     对原来的系统做了分层的优化
 
